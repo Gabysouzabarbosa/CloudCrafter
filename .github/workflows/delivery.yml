@@ -1,0 +1,40 @@
+name: Continuous Delivery
+
+on:
+  push:
+    branches:
+      - main
+      - criacao-cd
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Build project
+      run: |
+        echo "Construindo o projeto..."
+        # Aqui você pode adicionar o processo de build real do seu projeto
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-artifact
+        path: ./build # Especifique o diretório do seu build, ajuste conforme o necessário
+
