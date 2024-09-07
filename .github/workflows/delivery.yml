@@ -1,16 +1,16 @@
-name: Python Lint
+name: Continuous Delivery
 
 on:
   push:
     branches:
       - main
-      - criacao-ci
+      - criacao-cd
   pull_request:
     branches:
       - main
 
 jobs:
-  lint:
+  build-and-upload:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,16 +25,16 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8
         pip install -r requirements.txt
-
-    - name: Run Lint
-      run: |
-        flake8 .
 
     - name: Build project
       run: |
-        # Adicione aqui o comando para construir o projeto
         echo "Construindo o projeto..."
-        # Exemplo: Compilar um arquivo, empacotar, ou outra ação de build
-        # Se você não tiver um processo de build específico, pode substituir por algo simples
+        # Aqui você pode adicionar o processo de build real do seu projeto
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-artifact
+        path: ./build # Especifique o diretório do seu build, ajuste conforme o necessário
+
