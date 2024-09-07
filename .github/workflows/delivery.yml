@@ -1,16 +1,16 @@
-name: Continuous Delivery
+name: Continuous Deployment
 
 on:
   push:
     branches:
       - main
-      - criacao-cd
+      - criacao-cd-deployment
   pull_request:
     branches:
       - main
 
 jobs:
-  build-and-upload:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,11 +30,28 @@ jobs:
     - name: Build project
       run: |
         echo "Construindo o projeto..."
-        # Aqui você pode adicionar o processo de build real do seu projeto
+        # Aqui você pode adicionar o comando real de build, se necessário
+        mkdir -p build
+        echo "Arquivo de exemplo" > build/exemplo.txt
 
     - name: Upload build artifact
       uses: actions/upload-artifact@v3
       with:
         name: build-artifact
-        path: ./build # Especifique o diretório do seu build, ajuste conforme o necessário
+        path: ./build  # Diretório onde o artefato será armazenado
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download build artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: build-artifact  # Nome deve ser o mesmo do upload
+        path: ./deployed      # Diretório onde o artefato será baixado
+
+    - name: Simulate deployment
+      run: |
+        echo "Fazendo deploy do artefato..."
+        ls ./deployed  # Exibe os arquivos baixados como simulação de deploy
