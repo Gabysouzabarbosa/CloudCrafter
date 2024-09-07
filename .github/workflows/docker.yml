@@ -33,6 +33,9 @@ jobs:
       run: |
         docker run -d -p 8000:8000 cloudcrafter-app
 
+    - name: Wait for container to be ready
+      run: sleep 15  # Aguarda 15 segundos antes de executar o curl
+
     - name: Test Application
       run: |
         curl http://localhost:8000
