@@ -1,5 +1,4 @@
 name: Discord Alerts
-
 on:
   push:
     branches:
@@ -12,19 +11,14 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-    - name: Send Discord Notification
-      uses: Ilshidur/action-discord@master
-      with:
-        args: |
-          -e DISCORD_WEBHOOK=${{ secrets.DISCORD_WEBHOOK }} \
-          -e GITHUB_REPOSITORY="${{ github.repository }}" \
-          -e GITHUB_REF="${{ github.ref }}" \
-          -e GITHUB_SHA="${{ github.sha }}" \
-          -e GITHUB_WORKFLOW="${{ github.workflow }}" \
-          -e GITHUB_ACTOR="${{ github.actor }}" \
-          -e GITHUB_ACTION="${{ github.action }}" \
-          -e GITHUB_EVENT_NAME="${{ github.event_name }}" \
-          -e GITHUB_EVENT_PATH="${{ github.event_path }}" \
-          -e GITHUB_SERVER_URL="${{ github.server_url }}" \
-          -e GITHUB_EVENT_PATH="${{ github.event_path }}"
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Send Discord Notification
+        uses: tarek360/github-discord-action@v2
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
+          username: 'GitHub Action'
+          avatar-url: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
+          message: "Novo commit ou PR foi feito no repositório."
 
