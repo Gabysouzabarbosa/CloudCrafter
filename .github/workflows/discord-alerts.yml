@@ -16,4 +16,8 @@ jobs:
       uses: discord-webhook/discord-webhook@v1.0.1
       with:
         url: ${{ secrets.DISCORD_WEBHOOK }}
-        content: 'Novo commit ou PR foi feito no repositório. Verifique as alterações!'
+        content: "Novo commit ou PR foi feito no repositório. Verifique as alterações!"
+        repo_name: "gabysouzabarbosa/CloudCrafter" # Nome do repositório no formato username/repo
+        hide_links: true  # Esconde links na visualização
+        color: "#7289da"  # Cor personalizada para a mensagem
+
