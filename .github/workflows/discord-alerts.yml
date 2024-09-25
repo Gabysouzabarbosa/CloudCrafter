@@ -12,12 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Send Discord Notification
-      uses: infinioz/notificar-discord@main
-      with:
-        url: ${{ secrets.DISCORD_WEBHOOK }}
-        content: "Novo commit ou PR foi feito no repositório. Verifique as alterações!"
-        repo_name: "gabysouzabarbosa/CloudCrafter" # Nome do repositório no formato username/repo
-        hide_links: true  # Esconde links na visualização
-        color: "#7289da"  # Cor personalizada para a mensagem
-
+    - name: Notify discord
+      uses: th0th/notify-discord@v0.4.1
+      if: ${{ always() }}
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        GITHUB_ACTOR: ${{ github.actor }}
+        GITHUB_JOB_NAME: "Build and deploy"
+        GITHUB_JOB_STATUS: ${{ job.status }}
