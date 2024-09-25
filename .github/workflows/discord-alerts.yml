@@ -4,24 +4,27 @@ on:
   push:
     branches:
       - main
-      - dock
   pull_request:
-    types: [opened, closed]
+    branches:
+      - main
 
 jobs:
   notify:
     runs-on: ubuntu-latest
-
     steps:
     - name: Send Discord Notification
       uses: Ilshidur/action-discord@master
       with:
-        webhook: ${{ secrets.DISCORD_WEBHOOK }}
-        # Customize the message here
-        message: |
-          **GitHub Action Triggered**
-          Branch: ${{ github.ref }}
-          Commit: ${{ github.sha }}
-          Message: ${{ github.event.head_commit.message }}
-          Action: ${{ github.event_name }}
+        args: |
+          -e DISCORD_WEBHOOK=${{ secrets.DISCORD_WEBHOOK }} \
+          -e GITHUB_REPOSITORY="${{ github.repository }}" \
+          -e GITHUB_REF="${{ github.ref }}" \
+          -e GITHUB_SHA="${{ github.sha }}" \
+          -e GITHUB_WORKFLOW="${{ github.workflow }}" \
+          -e GITHUB_ACTOR="${{ github.actor }}" \
+          -e GITHUB_ACTION="${{ github.action }}" \
+          -e GITHUB_EVENT_NAME="${{ github.event_name }}" \
+          -e GITHUB_EVENT_PATH="${{ github.event_path }}" \
+          -e GITHUB_SERVER_URL="${{ github.server_url }}" \
+          -e GITHUB_EVENT_PATH="${{ github.event_path }}"
 
