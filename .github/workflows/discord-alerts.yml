@@ -17,8 +17,6 @@ jobs:
       - name: Send Discord Notification
         uses: tarek360/github-discord-action@v2
         with:
-          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
-          username: 'GitHub Action'
-          avatar-url: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
-          message: "Novo commit ou PR foi feito no repositório."
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          args: 'Novo commit ou PR foi feito no repositório.'
 
