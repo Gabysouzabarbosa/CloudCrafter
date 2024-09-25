@@ -1,0 +1,27 @@
+name: Discord Alerts
+
+on:
+  push:
+    branches:
+      - main
+      - dock
+  pull_request:
+    types: [opened, closed]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Send Discord Notification
+      uses: Ilshidur/action-discord@v2
+      with:
+        webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        # Customize the message here
+        message: |
+          **GitHub Action Triggered**
+          Branch: ${{ github.ref }}
+          Commit: ${{ github.sha }}
+          Message: ${{ github.event.head_commit.message }}
+          Action: ${{ github.event_name }}
+
