@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Send Discord Notification
-      uses: johnnyhuy/actions-discord-git-webhook@main
+      uses: discord-webhook/discord-webhook@v1.0.1
       with:
         url: ${{ secrets.DISCORD_WEBHOOK }}
         content: 'Novo commit ou PR foi feito no repositório. Verifique as alterações!'
