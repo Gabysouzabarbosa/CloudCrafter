@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Send Discord Notification
-      uses: Ilshidur/action-discord@v2
+      uses: Ilshidur/action-discord@master
       with:
         webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
         # Customize the message here
