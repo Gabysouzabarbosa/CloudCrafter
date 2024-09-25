@@ -1,22 +1,19 @@
 name: Discord Alerts
+
 on:
   push:
     branches:
       - main
   pull_request:
-    branches:
-      - main
+    types: [opened, synchronize, closed]
 
 jobs:
   notify:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Send Discord Notification
-        uses: Ilshidur/action-discord@v1.0.0
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          args: 'Novo commit ou PR foi feito no repositório.'
-
+    - name: Send Discord Notification
+      uses: tmaxmax/discord-webhook@v1.0.2
+      with:
+        url: ${{ secrets.DISCORD_WEBHOOK }}
+        content: 'Novo commit ou PR foi feito no repositório. Verifique as alterações!'
