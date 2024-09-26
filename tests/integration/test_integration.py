@@ -9,3 +9,8 @@ class TestIntegration(unittest.TestCase):
         response = requests.get('http://localhost:8000/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {"status": "ok"})
+
+
+if __name__ == "__main__":
+    unittest.main()
+
