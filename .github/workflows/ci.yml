@@ -24,9 +24,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Unit Tests
+      - name: Lint code
         run: |
-          python -m unittest discover -s tests/unit
+          pip install flake8
+          flake8 .
+
+      - name: Run Unit Tests
+        run: pytest tests/unit
 
   integration-tests:
     runs-on: ubuntu-latest
@@ -48,11 +52,8 @@ jobs:
       - name: Start FastAPI server
         run: |
           nohup uvicorn main:app --host 0.0.0.0 --port 8000 &
-        env:
-           PORT: 8000
-
-    - name: Wait for Server to Start
-      run: sleep 10
+          sleep 10
 
       - name: Run Integration Tests
-        run: python -m unittest discover -s tests/integration
+        run: pytest tests/integration
+
