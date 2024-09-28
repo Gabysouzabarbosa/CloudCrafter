@@ -1,7 +1,4 @@
-from fastapi.testclient import TestClient
-from main import app
-
-client = TestClient(app)
+import requests
 
 
 def test_api_status():
