@@ -1,17 +1,22 @@
 import unittest
 
+
 # Funções de exemplo para serem testadas
 def soma(a, b):
     return a + b
 
+
 def multiplica(a, b):
     return a * b
+
 
 def eh_par(n):
     return n % 2 == 0
 
+
 def para_maiusculas(texto):
     return texto.upper()
+
 
 class TestUnitarios(unittest.TestCase):
 
@@ -33,6 +38,7 @@ class TestUnitarios(unittest.TestCase):
 
     def test_para_maiusculas(self):
         self.assertEqual(para_maiusculas('teste'), 'TESTE')
+
 
 if __name__ == '__main__':
     unittest.main()
